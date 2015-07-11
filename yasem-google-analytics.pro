@@ -10,8 +10,7 @@ TEMPLATE = lib
 
 include($${top_srcdir}/common.pri)
 
-QT += core
-QT -= gui
+QT += core gui widgets
 
 DEFINES += TRAYICON_LIBRARY
 

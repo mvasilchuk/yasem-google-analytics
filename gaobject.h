@@ -7,6 +7,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QSettings>
 #include <QUrlQuery>
+#include <QSize>
 
 namespace yasem {
 
@@ -38,6 +39,14 @@ protected:
     QString m_client_id;
     QString m_user_id;
     QString m_tracking_id;
+    QUrl m_ga_collect_url;
+    QString m_user_locale;
+    QString m_core_version;
+    QSize m_screen_size;
+
+    QString m_user_agent;
+
+    QString getUserAgent();
 
 protected slots:
     void onGaFinished(QNetworkReply *reply);
