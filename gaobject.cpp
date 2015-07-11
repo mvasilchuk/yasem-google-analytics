@@ -103,13 +103,12 @@ void GAObject::sendData(const QUrlQuery &query, bool close)
 
 void GAObject::onGaFinished(QNetworkReply *reply)
 {
-    DEBUG() << "[GA]" << reply->url();
-    DEBUG() << "[GA]" << reply->errorString();
-    DEBUG() << "[GA]" << reply->readAll();
+    Q_UNUSED(reply);
 }
 
 void GAObject::onProfileLoaded(SDK::Profile* profile)
 {
+    Q_UNUSED(profile);
     QUrlQuery query = makeBaseQuery();
 
     // Events
