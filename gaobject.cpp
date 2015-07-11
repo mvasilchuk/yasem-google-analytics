@@ -14,6 +14,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QtWebKit/QtWebKitVersion>
+#include <QSysInfo>
 
 using namespace yasem;
 
@@ -48,7 +49,7 @@ SDK::PluginObjectResult GAObject::init()
 
 SDK::PluginObjectResult GAObject::deinit()
 {
-    stopSession();
+    //stopSession();
     return SDK::PLUGIN_OBJECT_RESULT_OK;
 }
 
@@ -140,7 +141,7 @@ QString GAObject::getUserAgent()
         ua = ua.arg(QLatin1String(
 #ifdef Q_OS_DARWIN
             "Macintosh; "
-#elif Q_OS_WIN
+#elif defined(Q_OS_WIN)
             ""
 #else
             (QGuiApplication::platformName() == QLatin1String("xcb")) ? "X11; " : "Unknown; "
@@ -159,7 +160,7 @@ QString GAObject::getUserAgent()
         ua = ua.arg(QLatin1String(
 
 #ifdef Q_OS_WIN
-            windowsVersionForUAString().latin1().data()
+        windowsVersionForUAString().toUtf8().constData()
 #elif defined(Q_OS_DARWIN)
     #if defined(Q_PROCESSOR_X86_32) || defined(Q_PROCESSOR_X86_64)
                 "Intel Mac OS X"
@@ -234,3 +235,47 @@ void GAObject::onProfileLoaded(SDK::Profile* profile)
     query.addQueryItem("el", "Profile loaded");
     sendData(query);
 }
+
+#ifdef Q_OS_WIN
+QString GAObject::windowsVersionForUAString()
+{
+    QString os;
+    switch (QSysInfo::windowsVersion())
+    {
+        case QSysInfo::WV_CE:
+        case QSysInfo::WV_CE_5:
+        case QSysInfo::WV_CE_6:         os = "Windows CE"; break;
+        case QSysInfo::WV_CENET:        os = "Windows CE .NET"; break;
+        case QSysInfo::WV_32s:          os = "Windows 3.1";break;
+        case QSysInfo::WV_95:           os = "Windows 95";break;
+        case QSysInfo::WV_98:           os = "Windows 98"; break;
+        case QSysInfo::WV_Me:           os = "Windows 98; Win 9x 4.90"; break;
+        case QSysInfo::WV_NT:           os = "WinNT4.0"; break;
+        case QSysInfo::WV_2000:         os = "Windows NT 5.0"; break;
+        case QSysInfo::WV_XP:           os = "Windows NT 5.1"; break;
+        case QSysInfo::WV_2003:         os = "Windows NT 5.2"; break;
+        case QSysInfo::WV_VISTA:        os = "Windows NT 6.0"; break;
+        case QSysInfo::WV_WINDOWS7:     os = "Windows NT 6.1"; break;
+        case QSysInfo::WV_WINDOWS8:     os = "Windows NT 6.2"; break;
+#if (QT_VERSION >= 0x05020)
+        case QSysInfo::WV_WINDOWS8_1:   os = "Windows NT 6.3"; break;
+#endif
+#if (QT_VERSION >= 0x05040)
+        case QSysInfo::WV_WINDOWS10:    os = "Windows NT 10.0"; break;
+#endif
+        default: {
+            os = QString("Windows NT %1").arg(QSysInfo::kernelVersion());
+            break;
+        }
+    }
+
+    QString cpu_arch = QSysInfo::currentCpuArchitecture();
+    QString arch_line = "";
+    if(cpu_arch == "x86_64")
+    {
+        arch_line = "; Win64; x64";
+    }
+
+    return os + arch_line;
+}
+#endif

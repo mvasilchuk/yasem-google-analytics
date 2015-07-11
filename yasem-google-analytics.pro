@@ -10,9 +10,9 @@ TEMPLATE = lib
 
 include($${top_srcdir}/common.pri)
 
-QT += core gui widgets
+QT += core gui widgets network
 
-DEFINES += TRAYICON_LIBRARY
+DEFINES += GA_LIBRARY
 
 SOURCES += \
     gaobject.cpp \

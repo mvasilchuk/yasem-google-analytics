@@ -27,6 +27,7 @@ public:
     SDK::PluginObjectResult init();
     SDK::PluginObjectResult deinit();
 
+
 public slots:
     void startSession();
     void stopSession();
@@ -47,7 +48,9 @@ protected:
     QString m_user_agent;
 
     QString getUserAgent();
-
+#ifdef Q_OS_WIN
+    QString windowsVersionForUAString();
+#endif
 protected slots:
     void onGaFinished(QNetworkReply *reply);
     void onProfileLoaded(SDK::Profile* profile);
