@@ -23,7 +23,7 @@ GAObject::GAObject(SDK::Plugin* plugin):
     m_settings          (SDK::Core::instance()->settings()),
     m_net_acc_manager   (new QNetworkAccessManager(this)),
     m_client_id         (m_settings->value("installation_id", "-undefined-").toString()),
-    m_user_id           (m_settings->value("registration_data/user_name", "anonymous").toString()),
+    m_user_id           (getHash(m_settings->value("registration_data/user_name", "anonymous").toString())),
     m_tracking_id       ("UA-65033972-1"),
     m_ga_collect_url    ("http://www.google-analytics.com/collect"),
     m_user_locale       (QLocale::system().bcp47Name()),
@@ -129,7 +129,7 @@ void GAObject::sendData(const QUrlQuery &query, bool close)
  *
  * @return
  */
-QString GAObject::getUserAgent()
+QString GAObject::getUserAgent() const
 {
     static QString ua;
 
@@ -216,6 +216,11 @@ QString GAObject::getUserAgent()
     }*/
 
     return ua.arg(appName);
+}
+
+QString GAObject::getHash(const QString &str) const
+{
+    return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha256).toHex();
 }
 
 void GAObject::onGaFinished(QNetworkReply *reply)

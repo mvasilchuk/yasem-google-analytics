@@ -47,7 +47,8 @@ protected:
 
     QString m_user_agent;
 
-    QString getUserAgent();
+    QString getUserAgent() const;
+    QString getHash(const QString& str) const;
 #ifdef Q_OS_WIN
     QString windowsVersionForUAString();
 #endif
