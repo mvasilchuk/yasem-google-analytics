@@ -60,7 +60,7 @@ void GAObject::startSession()
 
     // Events
     query.addQueryItem("t", "event");
-    query.addQueryItem("ec", "Unspecified");
+    query.addQueryItem("ec", "App");
     query.addQueryItem("ea", "Start");
     query.addQueryItem("el", "App started");
     sendData(query);
@@ -76,7 +76,7 @@ void GAObject::stopSession()
     query.addQueryItem("sc", "end");
 
     query.addQueryItem("t", "event");
-    query.addQueryItem("ec", "Unspecified");
+    query.addQueryItem("ec", "App");
     query.addQueryItem("ea", "Stop");
     query.addQueryItem("el", "App stopped");
 
