@@ -50,7 +50,7 @@ protected:
     QString getUserAgent() const;
     QString getHash(const QString& str) const;
 #ifdef Q_OS_WIN
-    QString windowsVersionForUAString();
+    QString windowsVersionForUAString() const;
 #endif
 protected slots:
     void onGaFinished(QNetworkReply *reply);

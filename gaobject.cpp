@@ -242,9 +242,9 @@ void GAObject::onProfileLoaded(SDK::Profile* profile)
 }
 
 #ifdef Q_OS_WIN
-QString GAObject::windowsVersionForUAString()
+QString GAObject::windowsVersionForUAString() const
 {
-    QString os;
+    static QString os;
     switch (QSysInfo::windowsVersion())
     {
         case QSysInfo::WV_CE:
