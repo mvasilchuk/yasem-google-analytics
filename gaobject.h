@@ -54,7 +54,7 @@ protected:
 #endif
 protected slots:
     void onGaFinished(QNetworkReply *reply);
-    void onProfileLoaded(SDK::Profile* profile);
+    void onProfileLoaded(QSharedPointer<SDK::Profile> profile);
 };
 
 }

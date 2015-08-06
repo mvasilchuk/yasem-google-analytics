@@ -228,7 +228,7 @@ void GAObject::onGaFinished(QNetworkReply *reply)
     Q_UNUSED(reply);
 }
 
-void GAObject::onProfileLoaded(SDK::Profile* profile)
+void GAObject::onProfileLoaded(QSharedPointer<SDK::Profile> profile)
 {
     Q_UNUSED(profile);
     QUrlQuery query = makeBaseQuery();
