@@ -262,10 +262,10 @@ QString GAObject::windowsVersionForUAString() const
         case QSysInfo::WV_VISTA:        os = "Windows NT 6.0"; break;
         case QSysInfo::WV_WINDOWS7:     os = "Windows NT 6.1"; break;
         case QSysInfo::WV_WINDOWS8:     os = "Windows NT 6.2"; break;
-#if (QT_VERSION >= 0x05020)
+#if (QT_VERSION >= 0x050200)
         case QSysInfo::WV_WINDOWS8_1:   os = "Windows NT 6.3"; break;
 #endif
-#if (QT_VERSION >= 0x05040)
+#if (QT_VERSION >= 0x050500)
         case QSysInfo::WV_WINDOWS10:    os = "Windows NT 10.0"; break;
 #endif
         default: {
