@@ -43,13 +43,17 @@ GAObject::~GAObject()
 
 SDK::PluginObjectResult GAObject::init()
 {
+#ifndef QT_DEBUG
     startSession();
+#endif
     return SDK::PLUGIN_OBJECT_RESULT_OK;
 }
 
 SDK::PluginObjectResult GAObject::deinit()
 {
+#ifndef QT_DEBUG
     //stopSession();
+#endif
     return SDK::PLUGIN_OBJECT_RESULT_OK;
 }
 
